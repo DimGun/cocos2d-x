@@ -40,6 +40,8 @@ THE SOFTWARE.
 #include "base/CCEventListenerKeyboard.h"
 #include "base/CCEventAcceleration.h"
 #include "base/CCEventListenerAcceleration.h"
+#include "base/CCEventDeviceMotion.h"
+#include "base/CCEventListenerDeviceMotion.h"
 
 
 #include "deprecated/CCString.h"
@@ -257,6 +259,20 @@ void Layer::onAcceleration(Acceleration* acc, Event* unused_event)
     {
         BasicScriptData data(this,(void*)acc);
         ScriptEvent event(kAccelerometerEvent,&data);
+        ScriptEngineManager::getInstance()->getScriptEngine()->sendEvent(&event);
+    }
+#endif
+}
+
+void Layer::onDeviceMotion(DeviceMotion* mot, Event* unused_event)
+{
+    CC_UNUSED_PARAM(mot);
+    CC_UNUSED_PARAM(unused_event);
+#if CC_ENABLE_SCRIPT_BINDING
+    if(kScriptTypeNone != _scriptType)
+    {
+        BasicScriptData data(this,(void*)mot);
+        ScriptEvent event(kMotionSensorEvent,&data);
         ScriptEngineManager::getInstance()->getScriptEngine()->sendEvent(&event);
     }
 #endif

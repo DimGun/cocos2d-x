@@ -185,6 +185,41 @@ void disableAccelerometerJni() {
     }
 }
 
+void enableMotionSensorJni(SensorType ccSensorType) {
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "enableMotionSensor",
+                                       "(I)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID,
+                                    static_cast<int>(ccSensorType));
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void setMotionSensorIntervalJni(SensorType ccSensorType, float interval) {
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "setMotionSensorInterval",
+                                       "(I)V,(F)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID,
+                                    static_cast<int>(ccSensorType),
+                                    interval);
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void disableMotionSensorJni(SensorType ccSensorType) {
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "disableMotionSensor",
+                                       "(I)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID,
+                                    static_cast<int>(ccSensorType));
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+
 void setKeepScreenOnJni(bool value) {
     JniMethodInfo t;
     

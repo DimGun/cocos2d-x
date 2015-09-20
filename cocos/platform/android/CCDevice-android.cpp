@@ -65,6 +65,23 @@ void Device::setAccelerometerInterval(float interval)
     setAccelerometerIntervalJni(interval);
 }
 
+void Device::setMotionSensorEnabled(SensorType ccSensorType, bool isEnabled)
+{
+    if (isEnabled)
+    {
+        enableMotionSensorJni(ccSensorType);
+    }
+    else
+    {
+        disableMotionSensorJni(ccSensorType);
+    }
+}
+
+void Device::setMotionSensorInterval(SensorType ccSensorType, float interval)
+{
+    setMotionSensorIntervalJni(ccSensorType, interval);
+}
+
 class BitmapDC
 {
 public:

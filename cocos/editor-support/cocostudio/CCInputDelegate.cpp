@@ -27,6 +27,7 @@ THE SOFTWARE.
 #include "platform/CCDevice.h"
 #include "base/CCEventListenerTouch.h"
 #include "base/CCEventListenerAcceleration.h"
+#include "base/CCEventListenerDeviceMotion.h"
 #include "base/CCEventListenerKeyboard.h"
 #include "base/CCEventDispatcher.h"
 
@@ -207,9 +208,37 @@ void InputDelegate::setAccelerometerEnabled(bool enabled)
         
         if (enabled)
         {
-            auto listener = EventListenerAcceleration::create(CC_CALLBACK_2(InputDelegate::onAcceleration, this));
+            auto listener = EventListenerAcceleration::create(
+              CC_CALLBACK_2(InputDelegate::onAcceleration, this));
             dispatcher->addEventListenerWithFixedPriority(listener, -1);
             _accelerometerListener = listener;
+        }
+    }
+}
+
+bool InputDelegate::isMotionSensorEnabled() const
+{
+    return _motionSensorEnabled;
+}
+
+void InputDelegate::setMotionSensorEnabled(SensorType type, bool enabled)
+{
+    if (enabled != _motionSensorEnabled)
+    {
+        _motionSensorEnabled = enabled;
+
+        auto dispatcher = Director::getInstance()->getEventDispatcher();
+        dispatcher->removeEventListener(_motionSensorListener);
+        _motionSensorListener = nullptr;
+
+        Device::setMotionSensorEnabled(type, enabled);
+
+        if (enabled)
+        {
+            auto listener = EventListenerDeviceMotion::create(
+              CC_CALLBACK_2(InputDelegate::onDeviceMotion, this));
+            dispatcher->addEventListenerWithFixedPriority(listener, -1);
+            _motionSensorListener = listener;
         }
     }
 }

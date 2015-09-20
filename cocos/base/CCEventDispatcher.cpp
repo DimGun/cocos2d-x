@@ -27,6 +27,7 @@
 #include "base/CCEventCustom.h"
 #include "base/CCEventListenerTouch.h"
 #include "base/CCEventListenerAcceleration.h"
+#include "base/CCEventListenerDeviceMotion.h"
 #include "base/CCEventListenerMouse.h"
 #include "base/CCEventListenerKeyboard.h"
 #include "base/CCEventListenerCustom.h"
@@ -73,6 +74,9 @@ static EventListener::ListenerID __getListenerID(Event* event)
     {
         case Event::Type::ACCELERATION:
             ret = EventListenerAcceleration::LISTENER_ID;
+            break;
+        case Event::Type::DEVICE_MOTION:
+            ret = EventListenerDeviceMotion::LISTENER_ID;
             break;
         case Event::Type::CUSTOM:
             {
@@ -1441,6 +1445,10 @@ void EventDispatcher::removeEventListenersForType(EventListener::Type listenerTy
     else if (listenerType == EventListener::Type::ACCELERATION)
     {
         removeEventListenersForListenerID(EventListenerAcceleration::LISTENER_ID);
+    }
+    else if (listenerType == EventListener::Type::DEVICE_MOTION)
+    {
+        removeEventListenersForListenerID(EventListenerDeviceMotion::LISTENER_ID);
     }
     else if (listenerType == EventListener::Type::KEYBOARD)
     {

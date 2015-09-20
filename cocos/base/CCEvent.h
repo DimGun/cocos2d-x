@@ -50,6 +50,7 @@ public:
         TOUCH,
         KEYBOARD,
         ACCELERATION,
+        DEVICE_MOTION,
         MOUSE,
         FOCUS,
         GAME_CONTROLLER,

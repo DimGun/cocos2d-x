@@ -52,6 +52,7 @@ class MenuItem;
 class CallFunc;
 class Acceleration;
 class Action;
+class DeviceMotion;
 
 enum ccScriptType {
     kScriptTypeNone = 0,
@@ -257,6 +258,7 @@ enum ScriptEventType
     kTouchesEvent,
     kKeypadEvent,
     kAccelerometerEvent,
+    kMotionSensorEvent,
     kControlEvent,
     kCommonEvent,
     kComponentEvent,

@@ -26,9 +26,11 @@ THE SOFTWARE.
 #ifndef __CCDEVICE_H__
 #define __CCDEVICE_H__
 
+#include <string>
 #include "platform/CCPlatformMacros.h"
 #include "base/ccMacros.h"
 #include "base/CCData.h"
+#include "base/ccTypes.h"
 
 NS_CC_BEGIN
 
@@ -75,6 +77,17 @@ public:
      *  Sets the interval of accelerometer.
      */
     static void setAccelerometerInterval(float interval);
+
+    /**
+     * To enable or disable MotionSensor.
+     */
+    static void setMotionSensorEnabled(SensorType ccSensorType, bool isEnabled);
+
+    /**
+     *  Sets the interval of MotionSensor.
+     */
+    static void setMotionSensorInterval(SensorType ccSensorType,
+                                        float interval);
 
     /**
      * Controls whether the screen should remain on.
